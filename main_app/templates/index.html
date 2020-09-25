@@ -1,0 +1,39 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wacky Widgets</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <h1>Wacky Widgets</h1>
+    {% if widgets|length == 0 %}
+        <h3>No Widgets Exist</h3>
+        <hr>
+        {% else %}
+        <table class="pure-table-striped">
+            <thead>
+                <tr>
+                    <th>Description</th>
+                    <th>Quantity</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    {% for widget in widgets %}
+                    <td>{{ widget }}</td>
+                    <td>{{ widget.quantity }}</td>
+                    <td><a href="{% url 'delete_widget' widget.id %}">X</a></td>
+                    {% endfor %}
+                </tr>
+            </tbody>
+        </table>
+        <hr>
+        {% endif %}
+        <a href="{% url 'add_widget' %}">Add a Widget</a>
+</body>
+</html>
